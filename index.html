@@ -1,26 +1,59 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Fridge Project</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-      html, body {
-        margin: 0;
-        height: 100%;
-        overflow: hidden;
-      }
-      iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-      }
-    </style>
-  </head>
-  <body>
-    <iframe
-      src="https://stretch3.github.io/#project=https://tohome87.github.io/Fridge/Fridge20250622_onsite.sb3&extensions=https://tohome87.github.io/Fridge/tm2scratch.js,https://tohome87.github.io/Fridge/iftttWebhooks.js,https://tohome87.github.io/Fridge/webapiExtension.js"
-      >
-    </iframe>
-  </body>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <title>Fridge Project - Stretch3 播放器</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    #errorMsg {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: #ffdddd;
+      color: #900;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+      display: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <div id="errorMsg">無法載入專案，請檢查網路連線或檔案路徑。</div>
+
+  <iframe
+    id="stretch3frame"
+    src="https://stretch3.github.io/#project=https://tohome87.github.io/Fridge/Fridge20250622_onsite.sb3&extensions=https://tohome87.github.io/Fridge/tm2scratch.js,https://tohome87.github.io/Fridge/iftttWebhooks.js,https://tohome87.github.io/Fridge/webapiExtension.js"
+    allowfullscreen
+    sandbox="allow-scripts allow-same-origin allow-forms"
+  ></iframe>
+
+  <script>
+    const iframe = document.getElementById('stretch3frame');
+    const errorMsg = document.getElementById('errorMsg');
+
+    // 簡單檢查 iframe 是否載入成功（timeout判斷）
+    let loadTimeout = setTimeout(() => {
+      errorMsg.style.display = 'block';
+    }, 10000); // 10秒內沒載入就顯示錯誤
+
+    iframe.onload = () => {
+      clearTimeout(loadTimeout);
+      errorMsg.style.display = 'none';
+    };
+  </script>
+</body>
 </html>
